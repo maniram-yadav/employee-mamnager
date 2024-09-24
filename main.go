@@ -8,6 +8,7 @@ import (
 
 	"employee-manager/backend/controllers"
 	"employee-manager/backend/database"
+	"employee-manager/backend/service"
 
 	_ "github.com/joho/godotenv/autoload"
 	log "github.com/sirupsen/logrus"
@@ -23,8 +24,11 @@ func main() {
 }
 
 func Serve(port int) {
-	controllers.Init()
-	r := controllers.Init()
+
+	dbService := service.DbService{}
+	controller := controllers.InitController(dbService)
+	r := controllers.Init(controller)
+
 	http.Handle("/", r)
 
 	server := newServer(":"+strconv.Itoa(port), r)

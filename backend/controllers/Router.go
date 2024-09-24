@@ -4,9 +4,9 @@ import (
 	"github.com/gorilla/mux"
 )
 
-var controller EmployeeController
+// var controller EmployeeController
 
-func Init() *mux.Router {
+func Init(controller EmployeeController) *mux.Router {
 	route := mux.NewRouter()
 
 	route.HandleFunc("/employee", controller.saveEmployee).Methods("POST")

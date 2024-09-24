@@ -1,6 +1,7 @@
 package controllers
 
 import (
+	"employee-manager/backend/service"
 	"fmt"
 	"net/http"
 
@@ -8,6 +9,7 @@ import (
 )
 
 type EmployeeController struct {
+	employeeService service.EmployeeService
 }
 
 func (ec *EmployeeController) saveEmployee(w http.ResponseWriter, r *http.Request) {
@@ -40,4 +42,10 @@ func (ec *EmployeeController) updateEmployeeAddress(w http.ResponseWriter, r *ht
 	vars := mux.Vars(r)
 	id := vars["empid"]
 	fmt.Fprint(w, "updateEmployeeAddress "+id)
+}
+
+func InitController(empService service.EmployeeService) EmployeeController {
+
+	employeeController := EmployeeController{employeeService: empService}
+	return employeeController
 }
